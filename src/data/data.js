@@ -1,0 +1,16 @@
+const entries = [
+  {
+    id: 1,
+    title: "College of Engineering",
+  },
+  {
+    id: 2,
+    title: "Dr. John Appleseed",
+  },
+  {
+    id: 3,
+    title: "Physics Laboratory",
+  },
+];
+
+export default entries;
