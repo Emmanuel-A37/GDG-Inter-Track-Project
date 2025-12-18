@@ -1,35 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import UploadDirections from './pages/Mobile/Upload admin for mobile/UploadDirections';
+import UploadFailure from './pages/Mobile/Upload admin for mobile/UploadFailure';
+import UploadBuilding from './pages/Mobile/Upload admin for mobile/UploadBuildingMobile';
+import NoInternet from './pages/Mobile/Download/NoInternet';
+import Downloading from './pages/Mobile/Download/Downloading';
+import DownloadCampus from './pages/Mobile/Download/DownloadCampus';
+import UploadFailureIpod from './pages/Ipod/Uploadadmin/UploadFailure';
+import UploadSuccessIpod from './pages/Ipod/Uploadadmin/UploadSucess';
+import UploadBuildingIpod from './pages/Ipod/Uploadadmin/UploadBuildingIpod';
+import UploadBuildingDesktop from './pages/Desktop/UploadDesktop/UploadBuildingDesktop';
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1 className='text-red-500'>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <UploadBuildingDesktop/>
+    </div>
+  );
 }
 
-export default App
+export default App;
