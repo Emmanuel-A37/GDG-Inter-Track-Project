@@ -1,19 +1,24 @@
-import { cn } from "../utils/cn";
+import React from "react";
 
-const Button = ({ type = "button", title, onClick, disabled, icon, customClass }) => {
+const Button = ({
+  children,
+  onClick,
+  className = "",
+  type = "button",
+  disabled = false,
+  href,
+}) => {
+  const base = `px-4 py-2 rounded ${className}`;
+  if (href) {
+    return (
+      <a href={href} className={base} aria-disabled={disabled}>
+        {children}
+      </a>
+    );
+  }
   return (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      className={cn(
-        `bg-primary text-white font-bold rounded-lg w-full h-10 md:h-14 cursor-pointer ${
-          disabled ? "opacity-50 cursor-not-allowed" : ""
-        }`,
-        customClass
-      )}
-    >
-      {title} {icon && <img src={icon} alt="icon" className="inline ml-2" />}
+    <button type={type} onClick={onClick} className={base} disabled={disabled}>
+      {children}
     </button>
   );
 };
