@@ -1,6 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
 @import "tailwindcss";
 
 body {
   margin: 0;
   min-height: 100vh;
+}
+@layer base {
+  html {
+    font-family: Lexend, system-ui, sans-serif;
+  }
+}
+
+@theme {
+  --color-primary: #3e84f4;
+  --color-grey: #f5f7f8;
+  --color-dark: #111418;
+  --color-darkGrey: #4b5563;
+  --color-lightGrey: #dbdfe6;
+  --color-borderGrey: #f3f4f6;
+ 
 }
