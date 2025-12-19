@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { SearchIcon } from "lucide-react";
 
 const Searchbar = () => {
   const [searchText, setSearchText] = useState("");
@@ -19,7 +20,7 @@ const Searchbar = () => {
         className="absolute left-3 top-1/2 -translate-y-1/2 rounded-l-md"
         aria-label="search"
       >
-        search
+        <SearchIcon/>
       </button>
 
       <input

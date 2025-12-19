@@ -2,20 +2,23 @@
   {
     "id": 1,
     "title": "College of Engineering",
-    "img": "",
-    "info": "Located Behind Chapel "
+    "main": "College of Engineering complex",
+    "img": "./assets/image4.jpg",
+    "info": "Located behind the University Chapel, near the main gate. "
   },
   {
     "id": 2,
     "title": "Dr. John Appleseed",
-    "img": "",
-    "info": "Lorem ipsum"
+    "img": "./assets/image5.jpg",
+    "main": "Dr. John Appleseed",
+    "info": "Located in the Mechanical Engineering office"
   },
   {
     "id": 3,
     "title": "Physics Laboratory",
-    "img": "",
-    "info": "dolor sit amet"
+    "main": "Dr. John Appleseed",
+    "img": "./assets/image6.jpg",
+    "info": "Located in the CST Laboratory"
   }
 ]
 
