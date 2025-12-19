@@ -1,9 +1,19 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Searchbar from "../../../components/Searchbar.jsx";
-import entries from "../../../data/data.js";
 import Item from "../../../components/Item.jsx";
 
 const Home = () => {
+  const [entries, setEntries] = useState([]);
+
+  useEffect(() => {
+    fetch("/data.json")
+      .then((res) => {
+        if (!res.ok) throw new Error("Missing data.json");
+        return res.json();
+      })
+      .then(setEntries)
+      .catch(() => setEntries([]));
+  }, []);
   return (
     <div className="min-h-screen bg-[#F6F7F8] p-4">
       <h1 className="text-[32px] font-bold text-[#111418]">

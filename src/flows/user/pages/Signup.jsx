@@ -4,17 +4,17 @@ import Button from "../../../components/Button";
 
 const Signup = ({ goTo }) => {
   return (
-    <div className="flex flex-col  justify-center">
+    <div className="flex flex-col justify-center">
       <Navbar />
       <label htmlFor="name">Name: </label>
-      <input className="border" type="text" />
+      <input className="border mb-4" type="text" />
 
-      <span
-        className="block cursor-pointer bg-blue-700 w-1/2"
+      <Button
         onClick={() => goTo("login")}
+        className="bg-blue-700 text-white w-1/2"
       >
         Signup
-      </span>
+      </Button>
     </div>
   );
 };
