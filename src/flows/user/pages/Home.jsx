@@ -21,7 +21,7 @@ const Home = ({ goTo, setSelectedOption }) => {
   };
   return (
     <div className="min-h-screen bg-[#F6F7F8] p-4">
-      <h1 className="text-[32px] font-bold text-[#111418]">
+      <h1 className="text-[32px] font-bold text-dark">
         Welcome, Student!
       </h1>
       <Searchbar />
@@ -38,7 +38,7 @@ const Home = ({ goTo, setSelectedOption }) => {
         </div>
       </div>
 
-      <h3 className="text-[#111418] font-bold text-lg">Recent</h3>
+      <h3 className="text-dark font-bold text-lg">Recent</h3>
       <div className="flex flex-col gap-4  ">
         {entries.map((entry) => (
           <Item key={entry.id} title={entry.title} onClick={()=>handleClick(entry)} />
