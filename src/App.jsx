@@ -1,20 +1,30 @@
 import React from 'react';
-import UploadDirections from './pages/Mobile/Upload admin for mobile/UploadDirections';
-import UploadFailure from './pages/Mobile/Upload admin for mobile/UploadFailure';
-import UploadBuilding from './pages/Mobile/Upload admin for mobile/UploadBuildingMobile';
-import NoInternet from './pages/Mobile/Download/NoInternet';
-import Downloading from './pages/Mobile/Download/Downloading';
-import DownloadCampus from './pages/Mobile/Download/DownloadCampus';
-import UploadFailureIpod from './pages/Ipod/Uploadadmin/UploadFailure';
-import UploadSuccessIpod from './pages/Ipod/Uploadadmin/UploadSucess';
-import UploadBuildingIpod from './pages/Ipod/Uploadadmin/UploadBuildingIpod';
+import UploadDirections from './pages/Mobile/UploadMobile/UploadDirections';
+import UploadFailure from './pages/Mobile/UploadMobile/UploadFailure';
+import UploadBuilding from './pages/Mobile/UploadMobile/UploadBuildingMobile';
+import NoInternet from './pages/Mobile/DownloadMobile/NoInternet';
+import Downloading from './pages/Mobile/DownloadMobile/Downloading';
+import DownloadCampus from './pages/Mobile/DownloadMobile/DownloadCampus';
+import UploadFailureIpod from './pages/Ipod/UploadIpod/UploadFailureIpod';
+import UploadSuccessIpod from './pages/Ipod/UploadIpod/UploadSucessIpod';
+import UploadBuildingIpod from './pages/Ipod/UploadIpod/UploadBuildingIpod';
 import UploadBuildingDesktop from './pages/Desktop/UploadDesktop/UploadBuildingDesktop';
+import DownloadCampusDesktop from './pages/Desktop/Download/DownloadCampusDesktop';
+import NoInternetIpad from './pages/Ipad/DownloadIpad/NoInternetIpad';
+import UploadSuccess from './pages/Mobile/UploadMobile/UploadSucess';
+import UploadDirectionsDesktop from './pages/Desktop/UploadDesktop/UploadDirectionsDesktop';
+import UploadDirectionsIpad from './pages/Ipad/UploadIpad/UploadDirectionIpad';
+import UploadDirectionsIpod from './pages/Ipod/UploadIpod/UploadDirectionIpod';
+import UploadSuccessDesktop from './pages/Desktop/UploadDesktop/UploadSuccessDesktop';
+import UploadSuccessIpad from './pages/Ipad/UploadIpad/UploadSuccessIpad';
+import UploadFailureIpad from './pages/Ipad/UploadIpad/UploadFailureIpad';
+import UploadFailureDesktop from './pages/Desktop/UploadDesktop/UploadFailureDesktop';
 
 
 function App() {
   return (
     <div className="App">
-      <UploadBuildingDesktop/>
+      <UploadSuccessDesktop/>
     </div>
   );
 }

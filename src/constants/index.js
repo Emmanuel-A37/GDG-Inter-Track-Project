@@ -1,2 +1,1 @@
-export { SCREEN_SIZES, getScreenSize } from './screenSizes';
-export { COLORS } from './colors';
+export { SCREEN_SIZES, getScreenSize , ICON_SIZES, NO_INTERNET_ICON_SIZES, UPLOAD_FAILURE_ICON_SIZES, UPLOAD_SUCCESS_ICON_SIZES} from './screenSizes';

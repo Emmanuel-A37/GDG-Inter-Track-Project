@@ -4,15 +4,15 @@ import Button from '../../../components/common/Button';
 import UploadFailureIcon from '../../../components/Icons/UploadFailureIcon';
 import { UPLOAD_FAILURE_ICON_SIZES } from '../../../constants';
 
-const UploadFailureIpad = ({ screenSize = 'ipad' }) => {
-  const iconSize = UPLOAD_FAILURE_ICON_SIZES[screenSize] || 144;
+const UploadFailureIpod = ({ screenSize = 'ipod' }) => {
+  const iconSize = UPLOAD_FAILURE_ICON_SIZES[screenSize] || 120;
 
   const handleGoBack = () => {
     window.history.back();
   };
 
   return (
-    <div className="min-h-[1133px] bg-white max-w-[744px] mx-auto flex flex-col">
+    <div className="min-h-[568px] bg-white max-w-[320px] mx-auto flex flex-col">
       <PageHeader
         title="Upload Status"
         showBack={true}
@@ -20,13 +20,13 @@ const UploadFailureIpad = ({ screenSize = 'ipad' }) => {
       />
 
       <main className="flex-1 flex flex-col items-center justify-between px-5 py-6">
-<div className="flex flex-col items-center justify-center mt-70">
+<div className="flex flex-col items-center justify-center mt-20">
         <div className="mb-6 flex justify-center items-center">
           <UploadFailureIcon size={iconSize} />
         </div>
 
     
-        <h2 className="text-xl font-semibold text-gray-900 mb-8">
+        <h2 className="text-center text-base font-semibold text-gray-900">
           Data Upload Failed!
         </h2>
 </div>
@@ -45,4 +45,4 @@ const UploadFailureIpad = ({ screenSize = 'ipad' }) => {
   );
 };
 
-export default UploadFailureIpad;
+export default UploadFailureIpod;

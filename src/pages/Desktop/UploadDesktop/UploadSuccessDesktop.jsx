@@ -1,48 +1,38 @@
 import React from 'react';
 import PageHeader from '../../../components/common/PageHeader';
 import Button from '../../../components/common/Button';
+import UploadSuccessIcon from '../../../components/Icons/UploadSuccessIcon';
+import { UPLOAD_SUCCESS_ICON_SIZES } from '../../../constants';
 
-const UploadSuccessDesktop = () => {
+const UploadSuccessDesktop = ({ screenSize = 'desktop' }) => {
+  const iconSize = UPLOAD_SUCCESS_ICON_SIZES[screenSize] || 144;
+
   const handleGoBack = () => {
     window.history.back();
   };
 
   return (
-    <div className="min-h-[1440px] bg-white max-w-[900px] mx-auto flex flex-col">
-      <PageHeader 
-        title="Upload Status" 
-        showBack={true} 
+    <div className="min-h-[900px] bg-white max-w-[1440px] mx-auto flex flex-col">
+      <PageHeader
+        title="Upload Status"
+        showBack={true}
         showSave={false}
       />
-      
-      <main className="flex-1 flex flex-col items-center justify-center px-5 py-6">
-        {/* Success Icon */}
-        <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mb-6">
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            className="h-10 w-10 text-white" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
-          >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={3} 
-              d="M5 13l4 4L19 7" 
-            />
-          </svg>
+
+      <main className="flex-1 flex flex-col items-center justify-between px-5 py-6">
+        <div className="flex flex-col items-center justify-center mt-60">
+        <div className="mb-6 flex justify-center items-center">
+          <UploadSuccessIcon size={iconSize} />
         </div>
 
-        {/* Success Message */}
         <h2 className="text-xl font-semibold text-gray-900 mb-8">
           Data Uploaded Successfully!
         </h2>
-
-        {/* Go Back Button */}
-        <div className="w-full max-w-sm px-4">
-          <Button 
-            variant="primary" 
+</div>
+  
+        <div className="w-full pb-4 px-4">
+          <Button
+            variant="primary"
             fullWidth={true}
             onClick={handleGoBack}
           >

@@ -4,7 +4,7 @@ import Button from '../../../components/common/Button';
 import UploadSuccessIcon from '../../../components/Icons/UploadSuccessIcon';
 import { UPLOAD_SUCCESS_ICON_SIZES } from '../../../constants';
 
-const UploadSuccessIpad = ({ screenSize = 'ipad' }) => {
+const UploadSuccess = ({ screenSize = 'mobile' }) => {
   const iconSize = UPLOAD_SUCCESS_ICON_SIZES[screenSize] || 128;
 
   const handleGoBack = () => {
@@ -19,8 +19,8 @@ const UploadSuccessIpad = ({ screenSize = 'ipad' }) => {
         showSave={false}
       />
 
-      <main className="flex-1 flex flex-col items-center justify-between  px-5 py-6">
-       <div className="flex flex-col items-center justify-center mt-70">
+      <main className="flex-1 flex flex-col items-center justify-between px-5 py-6">
+        <div className="flex flex-col items-center justify-center mt-70">
         <div className="mb-6 flex justify-center items-center">
           <UploadSuccessIcon size={iconSize} />
         </div>
@@ -44,4 +44,4 @@ const UploadSuccessIpad = ({ screenSize = 'ipad' }) => {
   );
 };
 
-export default UploadSuccessIpad;
+export default UploadSuccess;
