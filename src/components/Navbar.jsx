@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
 
-const Navbar = () => {
-  return (
-    <div className='flex justify-center items-center'>Navbar</div>
-  )
-}
 
-export default Navbar
+const Navbar = ({ title }) => {
+  return <div className="flex justify-center items-center">{title}</div>;
+};
+
+export default Navbar;

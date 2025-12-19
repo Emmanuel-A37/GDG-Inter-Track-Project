@@ -5,7 +5,7 @@ import Button from "../../../components/Button";
 const Signup = ({ goTo }) => {
   return (
     <div className="flex flex-col justify-center">
-      <Navbar />
+      <Navbar title={"Navbar"} />
       <label htmlFor="name">Name: </label>
       <input className="border mb-4" type="text" />
 

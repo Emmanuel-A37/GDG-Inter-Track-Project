@@ -5,7 +5,7 @@ import Button from "../../../components/Button";
 const Login = ({ goTo }) => {
   return (
     <div>
-      <Navbar />
+      <Navbar title={"Navbar"} />
       <Button onClick={() => goTo("home")} className="bg-blue-600 text-white">
         Login
       </Button>

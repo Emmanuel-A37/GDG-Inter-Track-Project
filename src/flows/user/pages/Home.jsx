@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Searchbar from "../../../components/Searchbar.jsx";
 import Item from "../../../components/Item.jsx";
 
-const Home = () => {
+const Home = ({ goTo, setSelectedOption }) => {
   const [entries, setEntries] = useState([]);
 
   useEffect(() => {
@@ -14,12 +14,18 @@ const Home = () => {
       .then(setEntries)
       .catch(() => setEntries([]));
   }, []);
+
+  const handleClick = (option) => {
+    setSelectedOption(option);
+    goTo("details");
+  };
   return (
     <div className="min-h-screen bg-[#F6F7F8] p-4">
       <h1 className="text-[32px] font-bold text-[#111418]">
         Welcome, Student!
       </h1>
       <Searchbar />
+
 
       <div className="flex gap-4 py-3 px-4">
         <div className="flex flex-col items-center justify-center h-40 bg-amber-400 w-full rounded-2xl p-6 my-3">
@@ -35,7 +41,7 @@ const Home = () => {
       <h3 className="text-[#111418] font-bold text-lg">Recent</h3>
       <div className="flex flex-col gap-4  ">
         {entries.map((entry) => (
-          <Item key={entry.id} title={entry.title} />
+          <Item key={entry.id} title={entry.title} onClick={()=>handleClick(entry)} />
         ))}
       </div>
     </div>

@@ -1,15 +1,21 @@
 [
   {
     "id": 1,
-    "title": "College of Engineering"
+    "title": "College of Engineering",
+    "img": "",
+    "info": "Located Behind Chapel "
   },
   {
     "id": 2,
-    "title": "Dr. John Appleseed"
+    "title": "Dr. John Appleseed",
+    "img": "",
+    "info": "Lorem ipsum"
   },
   {
     "id": 3,
-    "title": "Physics Laboratory"
+    "title": "Physics Laboratory",
+    "img": "",
+    "info": "dolor sit amet"
   }
 ]
 
