@@ -7,33 +7,29 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import AdminHome from "./pages/admin/AdminHome";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-
 const App = () => {
   const [flow, setFlow] = useState("user");
 
   return (
-    <div>
-      {flow === "user" && <UserFlow switchFlow={setFlow} />}
-      {flow === "admin" && <AdminFlow switchFlow={setFlow} />}
-      
-    </div>
+    <>
+      <div>
+        {flow === "user" && <UserFlow switchFlow={setFlow} />}
+        {flow === "admin" && <AdminFlow switchFlow={setFlow} />}
+      </div>
+
+      <Routes>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin/home"
+          element={
+            <ProtectedRoute>
+              <AdminHome />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </>
   );
 };
-
-function App() {
-  return (
-    <Routes>
-      <Route path="/admin/login" element={<AdminLogin />} />
-      <Route
-        path="/admin/home"
-        element={
-          <ProtectedRoute>
-            <AdminHome />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
-  );
-}
 
 export default App;
