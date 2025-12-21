@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Searchbar from "../../../components/Searchbar.jsx";
-import Item from "../../../components/Item.jsx";
+import Searchbar from "../../components/Searchbar.jsx";
+import Item from "../../components/Item.jsx";
 
 const Home = ({ goTo, setSelectedOption }) => {
   const [entries, setEntries] = useState([]);
