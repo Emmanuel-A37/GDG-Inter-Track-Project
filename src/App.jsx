@@ -1,30 +1,37 @@
-import React, { useState } from "react";
-import UserFlow from "./flows/user/UserFlow";
-import AdminFlow from "./flows/admin/AdminFlow";
+//import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminHome from "./pages/admin/AdminHome";
-import ProtectedRoute from "./components/ProtectedRoute";
+import AdminProtectedRoute from "./components/AdminProtectedRoute";
+import UserProtectedRoute from "./components/UserProtectedRoute";
+
+import Signup from "./pages/user/Signup";
+import Home from "./pages/user/Home";
+import Login from "./pages/user/Login"
 
 const App = () => {
-  const [flow, setFlow] = useState("user");
 
   return (
     <>
-      <div>
-        {flow === "user" && <UserFlow switchFlow={setFlow} />}
-        {flow === "admin" && <AdminFlow switchFlow={setFlow} />}
-      </div>
-
       <Routes>
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route
           path="/admin/home"
           element={
-            <ProtectedRoute>
+            <AdminProtectedRoute>
               <AdminHome />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/"
+          element={
+            <UserProtectedRoute>
+              <Home />
+            </UserProtectedRoute>
           }
         />
       </Routes>

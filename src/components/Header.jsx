@@ -2,7 +2,7 @@ import Shield from "../assets/shield.svg";
 import Menu from "../assets/menu.svg";
 import { cn } from "../utils/cn"
 
-const Header = ({ showIcons, customClass }) => {
+const Header = ({ showIcons, customClass, headerTitle }) => {
   return (
     <header className={cn("bg-white flex items-center justify-between px-4 pt-4 pb-2 border-b border-borderGrey", customClass)}>
       <div>
@@ -10,7 +10,7 @@ const Header = ({ showIcons, customClass }) => {
         {showIcons && <img src={Shield} alt="shield" />}
         
       </div>
-      <h2 className="text-lg md:text-2xl font-bold text-dark">Admin Portal</h2>
+      <h2 className="text-lg md:text-2xl font-bold text-dark">{headerTitle}</h2>
       <div>
         {showIcons && <img src={Menu} alt="menu" />}
         
