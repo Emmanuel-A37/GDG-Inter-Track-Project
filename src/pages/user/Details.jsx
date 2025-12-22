@@ -1,28 +1,31 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
 import { ChevronLeft } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const Details = ({ option }) => {
-  const { id } = useParams();
+const Details = () => {
+  const { state } = useLocation();
+  const item = state?.item;
 
-  if (!option) return <p>No details available</p>;
+  if (!item) return <p>No details available</p>;
+
   const navigate = useNavigate();
+
   return (
     <div>
-      <Navbar title={option.title}>
+      <Navbar title={item.title}>
         <button onClick={() => navigate(-1)}>
           <ChevronLeft />
         </button>
       </Navbar>
 
       <div className="h-80 overflow-hidden">
-        <img src={option.img} alt={option.title} />
+        <img src={item.img} alt={item.title} />
       </div>
 
-      <h3 className="text-2xl font-bold pl-3">{option.main}</h3>
+      <h3 className="text-2xl font-bold pl-3">{item.main}</h3>
 
-      <p className="pl-6 pt-20">{option.info}</p>
+      <p className="pl-6 pt-20">{item.info}</p>
     </div>
   );
 };
