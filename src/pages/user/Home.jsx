@@ -44,7 +44,7 @@ const Home = () => {
         </Link>
       </div>
 
-      <h3 className="text-dark font-bold text-lg">Recent</h3>
+      <h3 className="text-dark font-bold text-lg p-4">Recent</h3>
       <div className="flex flex-col gap-4  pl-4 pr-4">
         {entries.map((entry) => (
           <Item key={entry.id} item={entry} />
