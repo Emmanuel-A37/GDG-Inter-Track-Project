@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import ProtectedRoute from "../../components/ProtectedRoute";
+import AdminProtectedRoute from "../../components/AdminProtectedRoute";
 import AdminLogin from "./AdminLogin";
 import AdminHome from "./AdminHome";
 import React from "react";
@@ -11,9 +11,9 @@ const AdminFlow = () => {
       <Route
         path="/home"
         element={
-          <ProtectedRoute>
+          <AdminProtectedRoute>
             <AdminHome />
-          </ProtectedRoute>
+          </AdminProtectedRoute>
         }
       />
     </Routes>
