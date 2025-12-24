@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EyeOff } from "lucide-react";
 import Header from "../../components/Header";
+import { adminLogin } from "../../utils/service";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -24,16 +25,18 @@ const AdminLogin = () => {
 
     setLoading(true);
 
-    timerRef.current = setTimeout(() => {
-      if (password !== "adminonly") {
-        setError("Incorrect password. Please try again.");
-        setLoading(false);
-        return;
+    try {
+      const response = await adminLogin(password);
+
+      if (response.success) {
+        localStorage.setItem("admin_token", response.token);
+        navigate("/admin/home", { replace: true });
       }
-      localStorage.setItem("admin_auth", "true");
-      navigate("/admin/home");
+    } catch (err) {
+      setError(err.message || "Invalid password. Please try again.");
+    } finally {
       setLoading(false);
-    }, 800);
+    }
   };
 
   useEffect(() => {
@@ -44,7 +47,11 @@ const AdminLogin = () => {
 
   return (
     <div className="min-h-screen flex flex-col lg:bg-grey">
-      <Header headerTitle="Admin Portal" showIcons={true} customClass="bg-grey border-0" />
+      <Header
+        headerTitle="Admin Portal"
+        showIcons={true}
+        customClass="bg-grey border-0"
+      />
       <main className="flex-1 px-4 pb-4 pt-8 md:pt-11.5 lg:pt-24.5 flex flex-col lg:justify-center lg:mx-auto lg:max-w-120 w-full">
         <form onSubmit={handleLogin} className="flex-1 flex flex-col">
           <div className="flex-1">
