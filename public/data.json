@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "icon": "",
     "title": "College of Engineering",
     "main": "College of Engineering complex",
     "img": "./assets/image4.jpg",
@@ -8,6 +9,7 @@
   },
   {
     "id": 2,
+    "icon": "",
     "title": "Dr. John Appleseed",
     "img": "./assets/image5.jpg",
     "main": "Dr. John Appleseed",
@@ -15,6 +17,7 @@
   },
   {
     "id": 3,
+    "icon": "",
     "title": "Physics Laboratory",
     "main": "Dr. John Appleseed",
     "img": "./assets/image6.jpg",
