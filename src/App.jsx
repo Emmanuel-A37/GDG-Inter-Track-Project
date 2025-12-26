@@ -1,26 +1,42 @@
+//import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminHome from "./pages/admin/AdminHome";
-import ProtectedRoute from "./components/ProtectedRoute";
-import UploadBuildingDesktop from "./pages/Desktop/UploadDesktop/UploadBuildingDesktop";
-import UploadDirectionsDesktop from "./pages/Desktop/UploadDesktop/UploadDirectionsDesktop";
+import AdminProtectedRoute from "./components/AdminProtectedRoute";
+import UserProtectedRoute from "./components/UserProtectedRoute";
 
-function App() {
+import Signup from "./pages/user/Signup";
+import Home from "./pages/user/Home";
+import Login from "./pages/user/Login"
+
+const App = () => {
+
   return (
-    // <Routes>
-    //   <Route path="/admin/login" element={<AdminLogin />} />
-    //   <Route
-    //     path="/admin/home"
-    //     element={
-    //       <ProtectedRoute>
-    //         <AdminHome />
-    //       </ProtectedRoute>
-    //     }
-    //   />
-    // </Routes>
-<UploadDirectionsDesktop/>
+    <>
+      <Routes>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin/home"
+          element={
+            <AdminProtectedRoute>
+              <AdminHome />
+            </AdminProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/"
+          element={
+            <UserProtectedRoute>
+              <Home />
+            </UserProtectedRoute>
+          }
+        />
+      </Routes>
+    </>
   );
-}
+};
 
 export default App;
