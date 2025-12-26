@@ -14,19 +14,19 @@ const Searchbar = () => {
   };
 
   return (
-    <div className="relative flex justify-center items-center w-full">
+    <div className="relative flex justify-center items-center w-full px-4 py-3">
       <button
         onClick={handleSearch}
-        className="absolute left-3 top-1/2 -translate-y-1/2 rounded-l-md"
+        className="absolute left-5 top-1/2 -translate-y-1/2 rounded-l-md"
         aria-label="search"
       >
-        <SearchIcon/>
+        <SearchIcon size={24}/>
       </button>
 
       <input
         name="search-input"
         value={searchText}
-        className="flex-1 my-3 border border-gray-300 pl-10 pr-4 py-3 h-14 rounded-r-md focus:outline-none"
+        className="flex-1 my-3 border border-gray-300 pl-10 h-14 rounded-md focus:outline-none"
         type="text"
         onChange={(e) => setSearchText(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && handleSearch()}
