@@ -4,11 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EyeOff } from "lucide-react";
 import Header from "../../components/Header";
-import { adminLogin } from "../../utils/service";
+import { loginAdmin } from "../../api/auth.api";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,12 +27,9 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      const response = await adminLogin(password);
+      const response = await loginAdmin({ userName, password });
+      navigate("/admin/home", { replace: true });
 
-      if (response.success) {
-        localStorage.setItem("admin_token", response.token);
-        navigate("/admin/home", { replace: true });
-      }
     } catch (err) {
       setError(err.message || "Invalid password. Please try again.");
     } finally {
@@ -64,6 +62,27 @@ const AdminLogin = () => {
             </p>
 
             <div className="mt-4 md:mt-6 w-full">
+              <label
+                className="text-[14px] text-dark mb-1 block"
+                htmlFor="username"
+              >
+                UserName
+              </label>
+
+              <div className="relative rounded-lg border border-lightGrey lg:bg-white lg:border-white w-full">
+                <input
+                  type="text"
+                  id="username"
+                  value={userName}
+                  onChange={(e) => {
+                    setUserName(e.target.value);
+                    setError("");
+                  }}
+                  autoComplete="current-username"
+                  className="w-full pr-12 py-3 pl-3 border-0 outline-0"
+                />
+              </div>
+
               <label
                 className="text-[14px] text-dark mb-1 block"
                 htmlFor="password"
