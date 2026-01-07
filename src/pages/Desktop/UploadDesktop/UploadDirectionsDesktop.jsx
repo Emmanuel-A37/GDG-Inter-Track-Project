@@ -37,21 +37,25 @@ const UploadDirectionsDesktop = () => {
     loadBuildings();
   }, []);
 
+  // Handle dropdown changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Handle instruction textarea changes
   const handleInstructionChange = (id, value) => {
     setInstructions((prev) =>
       prev.map((i) => (i.id === id ? { ...i, text: value } : i))
     );
   };
 
+  // Add a new step
   const handleAddStep = () => {
     setInstructions((prev) => [...prev, { id: prev.length + 1, text: '' }]);
   };
 
+  // Submit directions
   const handleSubmit = async () => {
     if (!formData.startingPoint || !formData.destination) {
       return alert('Please select starting point and destination');
@@ -72,18 +76,11 @@ const UploadDirectionsDesktop = () => {
     setIsLoading(true);
 
     try {
-      const res = await fetch('/api/v1/routes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('admin_token')}`,
-        },
-        body: JSON.stringify({
-          start_building_id: Number(formData.startingPoint),
-          end_building_id: Number(formData.destination),
-          steps,
-        }),
-      });
+      const res = await RoutesAPI.createRoute({
+  start_building_id: Number(formData.startingPoint),
+  end_building_id: Number(formData.destination),
+  steps,
+});
 
       const data = await res.json();
       data.success
@@ -100,7 +97,9 @@ const UploadDirectionsDesktop = () => {
   return (
     <div className="min-h-[900px] bg-white max-w-[1440px] mx-auto px-4">
       <PageHeader title="Upload Directions" showBack />
+
       <main className="px-5 py-6 space-y-6">
+        {/* Dropdowns for starting & ending building */}
         <Dropdown
           label="From"
           name="startingPoint"
@@ -118,6 +117,7 @@ const UploadDirectionsDesktop = () => {
           placeholder="Select Destination"
         />
 
+        {/* Instructions / Steps */}
         <div>
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-gray-900">Instructions</h2>
@@ -151,6 +151,7 @@ const UploadDirectionsDesktop = () => {
           </button>
         </div>
 
+        {/* Submit Button */}
         <Button
           variant="primary"
           fullWidth
