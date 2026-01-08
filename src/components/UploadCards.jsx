@@ -22,11 +22,12 @@ const UploadCards = ({
         <p className="text-[14px] text-[#617589] mb-10">{subtitle}</p>
         <div className="flex justify-center">
           <Button
-            title={buttonText}
-            icon={buttonIcon}
-            customClass="max-w-[286px]"
+            className="max-w-[286px] bg-primary text-white w-full flex items-center justify-center gap-2"
             onClick={onClick}
-          />
+          >
+            {buttonIcon && <img src={buttonIcon} alt="" />}
+            {buttonText}
+          </Button>
         </div>
       </div>
     </div>
