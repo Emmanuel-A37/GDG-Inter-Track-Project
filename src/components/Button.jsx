@@ -8,7 +8,7 @@ const Button = ({
   disabled = false,
   href,
 }) => {
-  const base = `px-4 py-2 rounded ${className}`;
+  const base = `cursor-pointer px-4 py-2 rounded ${className}`;
   if (href) {
     return (
       <a href={href} className={base} aria-disabled={disabled}>

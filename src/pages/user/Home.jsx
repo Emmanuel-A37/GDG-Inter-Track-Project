@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Searchbar from "../../components/Searchbar.jsx";
 import Item from "../../components/Item.jsx";
+import { Link } from "react-router-dom";
 
 const Home = ({ goTo, setSelectedOption }) => {
   const [entries, setEntries] = useState([]);
@@ -28,10 +29,10 @@ const Home = ({ goTo, setSelectedOption }) => {
 
 
       <div className="flex gap-4 py-3 px-4">
-        <div className="flex flex-col items-center justify-center h-40 bg-amber-400 w-full rounded-2xl p-6 my-3">
+        <Link to="/buildings" className="flex flex-col items-center justify-center h-40 bg-amber-400 w-full rounded-2xl p-6 my-3">
           <img className="w-14" src="" alt="" />
           <p className="font-bold">Find Building</p>
-        </div>
+        </Link>
         <div className="flex flex-col items-center justify-center h-40 bg-blue-400 w-full rounded-2xl p-6 my-3">
           <img className="w-14" src="" alt="" />
           <p className="font-bold">Find Lecturer</p>

@@ -4,8 +4,11 @@ import Accordion from '../../../components/Accordion';
 import Input from '../../../components/common/Input';
 import FileUpload from '../../../components/common/FileUpload';
 import Button from '../../../components/common/Button';
+import useBuildings from '../../../hooks/useBuildings';
 
 const UploadBuilding = () => {
+  const { uploadBuilding, loading, error } = useBuildings();
+  const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
     buildingName: '',
     buildingImage: null
@@ -27,12 +30,28 @@ const UploadBuilding = () => {
   };
 
   const handleSave = () => {
-    console.log('Save clicked');
+    handleSubmit();
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
+  const handleSubmit = async (e) => {
+    if (e) e.preventDefault();
+    
+    if (!formData.buildingName || !formData.buildingImage) {
+      alert("Please provide both name and image");
+      return;
+    }
+
+    const data = new FormData();
+    data.append('name', formData.buildingName);
+    data.append('image', formData.buildingImage);
+
+    try {
+      await uploadBuilding(data);
+      setSuccess(true);
+      setFormData({ buildingName: '', buildingImage: null });
+    } catch (err) {
+      console.error('Upload failed');
+    }
   };
 
   return (
@@ -45,6 +64,18 @@ const UploadBuilding = () => {
       />
 
       <main className="px-5 py-6 space-y-6">
+        {success && (
+          <div className="bg-green-50 text-green-700 p-4 rounded-lg text-center">
+            Building uploaded successfully!
+          </div>
+        )}
+        
+        {error && (
+          <div className="bg-red-50 text-red-700 p-4 rounded-lg text-center">
+            {error}
+          </div>
+        )}
+
         <Accordion title="Upload Building Data"
         containerClassName="max-w-[712px] min-h-[681px]">
           <Input
@@ -55,14 +86,18 @@ const UploadBuilding = () => {
             placeholder="Enter building name"
           />
 
-          <FileUpload containerClassName="max-w-[680px] h-[269px]" onFileSelect={handleFileSelect} />
+          <FileUpload 
+            containerClassName="max-w-[680px] h-[269px]" 
+            onFileSelect={handleFileSelect} 
+          />
 
           <Button
             variant="primary"
             fullWidth
             onClick={handleSubmit}
+            disabled={loading}
           >
-            Upload Building
+            {loading ? 'Uploading...' : 'Upload Building'}
           </Button>
         </Accordion>
       </main>
