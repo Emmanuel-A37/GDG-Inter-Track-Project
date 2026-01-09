@@ -60,18 +60,30 @@ const EditBuildingMobile = ({ buildingId, screenSize = 'mobile', onBack }) => {
   };
 
   const handleDelete = async () => {
-    if (!window.confirm('Delete this building?')) return;
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this building? This action cannot be undone.'
+    );
+    if (!confirmed) return;
 
     setDeleting(true);
+    setError('');
+
     try {
       await BuildingAPI.deleteBuilding(buildingId);
       navigate('/buildings');
-    } catch {
-      setError('Failed to delete building');
+    } catch (err) {
+      if (err.response?.status === 401) {
+        setError('Unauthorized. Please login as admin.');
+      } else if (err.response?.status === 404) {
+        setError('Building not found.');
+      } else {
+        setError('Failed to delete building.');
+      }
     } finally {
       setDeleting(false);
     }
   };
+
 
   return (
     <div className="bg-gray-50 mx-auto" style={{ maxWidth: sizes.maxWidth }}>

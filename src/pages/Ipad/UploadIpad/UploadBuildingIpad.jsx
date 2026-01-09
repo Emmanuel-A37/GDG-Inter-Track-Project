@@ -6,68 +6,55 @@ import FileUpload from '../../../components/common/FileUpload';
 import Button from '../../../components/common/Button';
 import { BuildingAPI } from '../../../services/buildingapi';
 
-const UploadBuildingIpad = () => {
+const UploadBuildingDesktop = () => {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     buildingName: '',
-    buildingImage: null
+    buildingImage: null,
   });
 
-  const [loading, setLoading] = useState(false);
-
-  const handleInputChange = (e) => {
+   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
 
   const handleFileSelect = (file) => {
-    setFormData(prev => ({
-      ...prev,
-      buildingImage: file
-    }));
+    setFormData((prev) => ({ ...prev, buildingImage: file }));
   };
 
-  const handleSubmit = async (e) => {
-    e?.preventDefault();
-
-    if (!formData.buildingName) {
-      alert('Building name is required');
-      return;
-    }
-
-    const payload = new FormData();
-    payload.append('name', formData.buildingName);
-
-    if (formData.buildingImage) {
-      payload.append('image', formData.buildingImage);
-    }
-
-    try {
-      setLoading(true);
-
-      const response = await BuildingAPI.createBuilding(payload);
-
-      console.log('Building created:', response.data);
-      alert('Building uploaded successfully');
-
-      // Reset form
-      setFormData({
-        buildingName: '',
-        buildingImage: null
+  const uploadImage = async (file) => {
+      const form = new FormData();
+      form.append('image', file);
+      const res = await fetch('https://api.postimage.org/1/upload', {
+        method: 'POST',
+        body: form,
       });
-
-    } catch (error) {
-      console.error(error);
-      alert(
-        error?.response?.data?.message ||
-        'Failed to upload building'
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+      const data = await res.json();
+      if (data.status === 200) return data.url;
+      throw new Error('Image upload failed');
+    };
+  
+    const handleSave = async () => {
+      if (!formData.buildingName) return alert('Please enter building name');
+      setIsLoading(true);
+  
+      try {
+        const imageUrl = formData.buildingImage ? await uploadImage(formData.buildingImage) : '';
+        await BuildingAPI.createBuilding({
+          name: formData.buildingName,
+          image_url: imageUrl,
+          description: '',
+        });
+        navigate('/upload/status', { state: { success: true } });
+      } catch (error) {
+        console.error(error);
+        navigate('/upload/status', { state: { success: false } });
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
   return (
     <div className="bg-gray-50 max-w-[744px] min-h-[1133px] mx-auto">
@@ -75,7 +62,7 @@ const UploadBuildingIpad = () => {
         title="Building Data Upload"
         showBack={true}
         showSave={true}
-        onSave={handleSubmit}
+        onSave={handleSave}
       />
 
       <main className="px-5 py-6 space-y-6">
@@ -100,10 +87,10 @@ const UploadBuildingIpad = () => {
           <Button
             variant="primary"
             fullWidth
-            onClick={handleSubmit}
-            disabled={loading}
+            onClick={handleSave}
+            disabled={isLoading}
           >
-            {loading ? 'Uploading...' : 'Upload Building'}
+            {isLoading ? 'Uploading...' : 'Upload Building'}
           </Button>
         </Accordion>
       </main>

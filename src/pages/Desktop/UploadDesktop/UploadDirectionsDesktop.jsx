@@ -17,7 +17,7 @@ const UploadDirectionsDesktop = () => {
 
   const [instructions, setInstructions] = useState([{ id: 1, text: '' }]);
 
-  // Load buildings for dropdowns
+
   useEffect(() => {
     const loadBuildings = async () => {
       try {
@@ -37,25 +37,25 @@ const UploadDirectionsDesktop = () => {
     loadBuildings();
   }, []);
 
-  // Handle dropdown changes
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle instruction textarea changes
+
   const handleInstructionChange = (id, value) => {
     setInstructions((prev) =>
       prev.map((i) => (i.id === id ? { ...i, text: value } : i))
     );
   };
 
-  // Add a new step
+  
   const handleAddStep = () => {
     setInstructions((prev) => [...prev, { id: prev.length + 1, text: '' }]);
   };
 
-  // Submit directions
+ 
   const handleSubmit = async () => {
     if (!formData.startingPoint || !formData.destination) {
       return alert('Please select starting point and destination');
@@ -66,7 +66,7 @@ const UploadDirectionsDesktop = () => {
       .map((s, i) => ({
         step_number: i + 1,
         instruction: s.text,
-        image_url: '', // Placeholder
+        image_url: '',
       }));
 
     if (steps.length === 0) {
@@ -99,7 +99,7 @@ const UploadDirectionsDesktop = () => {
       <PageHeader title="Upload Directions" showBack />
 
       <main className="px-5 py-6 space-y-6">
-        {/* Dropdowns for starting & ending building */}
+       
         <Dropdown
           label="From"
           name="startingPoint"
@@ -151,7 +151,7 @@ const UploadDirectionsDesktop = () => {
           </button>
         </div>
 
-        {/* Submit Button */}
+     
         <Button
           variant="primary"
           fullWidth
