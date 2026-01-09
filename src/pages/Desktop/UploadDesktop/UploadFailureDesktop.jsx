@@ -3,10 +3,10 @@ import PageHeader from '../../../components/common/PageHeader';
 import Button from '../../../components/common/Button';
 import UploadFailureIcon from '../../../components/Icons/UploadFailureIcon';
 import { UPLOAD_FAILURE_ICON_SIZES } from '../../../constants';
-
+import { useNavigate } from 'react-router-dom';
 const UploadFailureDesktop = ({ screenSize = 'desktop' }) => {
   const iconSize = UPLOAD_FAILURE_ICON_SIZES[screenSize] || 160;
-
+  const navigate = useNavigate();
   const handleGoBack = () => {
     window.history.back();
   };

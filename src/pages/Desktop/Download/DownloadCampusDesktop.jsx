@@ -4,13 +4,17 @@ import PageLayout from '../../../components/common/PageLayout';
 import DownloadButton from '../../../components/common/DownloadButton';
 import DownloadCampusIcon from '../../../components/Icons/DownloadCampusIcon';
 import { getScreenSize,ICON_SIZES } from '../../../constants';
-
+import { useNavigate } from 'react-router-dom';
 const DownloadCampusDesktop = ({ screenSize = 'desktop' }) => {
   const sizes = getScreenSize(screenSize);
   const iconSize = ICON_SIZES[screenSize] || 96;
-
+  const navigate = useNavigate();
   const handleDownload = () => {
-    console.log('Download started');
+    if(!navigator.onLine){
+      navigate('/download/no-internet');
+      return;
+    }
+    navigate('/download/downloading')
   };
 
   return (

@@ -2,51 +2,103 @@ import React, { useState } from 'react';
 import PageHeader from '../../../components/common/PageHeader';
 import Dropdown from '../../../components/common/Dropdown';
 import Button from '../../../components/common/Button';
-
+import { useNavigate } from 'react-router-dom';
+import { BuildingAPI } from '../../../services/buildingapi';
 const UploadDirections = () => {
-  const [formData, setFormData] = useState({
-    startingPoint: '',
-    destination: ''
+  const navigate = useNavigate();
+    const [buildings, setBuildings] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+  
+    const [formData, setFormData] = useState({
+      startingPoint: '',
+      destination: '',
+    });
+  
+    const [instructions, setInstructions] = useState([{ id: 1, text: '' }]);
+  
+  
+    useEffect(() => {
+      const loadBuildings = async () => {
+        try {
+          const res = await BuildingAPI.getAllBuildings();
+          if (res.data.success) {
+            setBuildings(
+              res.data.data.map((b) => ({
+                label: b.name,
+                value: b.id.toString(),
+              }))
+            );
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      };
+      loadBuildings();
+    }, []);
+  
+  
+    const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+  
+  
+    const handleInstructionChange = (id, value) => {
+      setInstructions((prev) =>
+        prev.map((i) => (i.id === id ? { ...i, text: value } : i))
+      );
+    };
+  
+    
+    const handleAddStep = () => {
+      setInstructions((prev) => [...prev, { id: prev.length + 1, text: '' }]);
+    };
+  
+   
+    const handleSubmit = async () => {
+      if (!formData.startingPoint || !formData.destination) {
+        return alert('Please select starting point and destination');
+      }
+  
+      const steps = instructions
+        .filter((s) => s.text.trim())
+        .map((s, i) => ({
+          step_number: i + 1,
+          instruction: s.text,
+          image_url: '',
+        }));
+  
+      if (steps.length === 0) {
+        return alert('Please add at least one step');
+      }
+  
+      setIsLoading(true);
+  
+      try {
+        const res = await RoutesAPI.createRoute({
+    start_building_id: Number(formData.startingPoint),
+    end_building_id: Number(formData.destination),
+    steps,
   });
-
-  const [instructions, setInstructions] = useState([
-    { id: 1, text: '' },
-    { id: 2, text: '' }
-  ]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleInstructionChange = (id, value) => {
-    setInstructions(prev =>
-      prev.map(instruction =>
-        instruction.id === id ? { ...instruction, text: value } : instruction
-      )
-    );
-  };
-
-  const handleAddStep = () => {
-    const newId = instructions.length + 1;
-    setInstructions(prev => [...prev, { id: newId, text: '' }]);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form Data:', formData);
-    console.log('Instructions:', instructions);
-  };
+  
+        const data = await res.json();
+        data.success
+          ? navigate('/upload/status', { state: { success: true } })
+          : navigate('/upload/status', { state: { success: false } });
+      } catch (err) {
+        console.error(err);
+        navigate('/upload/status', { state: { success: false } });
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
   return (
     <div className="min-h-[1133px] bg-white max-w-[744px] mx-auto flex flex-col">
       <PageHeader
         title="Upload Directions"
-        showBack={true}
-        showSave={false}
+        showBack
+      
       />
       
       <main className='px-5 py-6 space-y-6'>
@@ -62,7 +114,7 @@ const UploadDirections = () => {
               value={formData.startingPoint}
               onChange={handleInputChange}
               placeholder="Select Starting Point"
-              options={[]}
+              options={buildings}
               color='text-blue-700'
             />
             
@@ -89,7 +141,7 @@ const UploadDirections = () => {
               value={formData.destination}
               onChange={handleInputChange}
               placeholder="Select Destination"
-              options={[]}
+              options={buildings}
             />
           </div>
         </div>
@@ -143,8 +195,9 @@ const UploadDirections = () => {
             variant="primary"
             fullWidth={true}
             onClick={handleSubmit}
+            disabled = {isLoading}
           >
-            Submit Directions
+            {isLoading ? 'Submitting...' : 'Submit Directions'}
           </Button>
         </div>
       </main>

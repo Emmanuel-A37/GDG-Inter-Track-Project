@@ -2,24 +2,48 @@ import React, { useState, useEffect } from 'react';
 import PageLayout from '../../../components/common/PageLayout';
 import DownloadButton from '../../../components/common/DownloadButton';
 import { getScreenSize } from '../../../constants';
-
+import { useNavigate } from 'react-router-dom';
 const DownloadingDesktop = ({ screenSize = 'Desktop' }) => {
   const [progress, setProgress] = useState(0);
   const sizes = getScreenSize(screenSize);
-
+  const navigate = useNavigate();
   useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
+  const downloadData = async () => {
+      try {
+        const response = await api.get('/sync/all/', {
+          onDownloadProgress: (e) => {
+            if (e.total) {
+              setProgress(Math.round((e.loaded * 100) / e.total));
+            } else {
+              setProgress((prev) => Math.min(prev + 3, 95));
+            }
+          },
+        });
+
+        if (response.data.success) {
+          localStorage.setItem('offline_data', JSON.stringify(response.data.data));
+          localStorage.setItem('last_sync', new Date().toISOString());
+          setProgress(100);
+          setTimeout(() => navigate(-2), 1500); // Back to home after success
         }
+      } catch (err) {
+        alert('Download failed. Check your connection.');
+        navigate('/download/no-internet');
+      }
+    };
+
+    downloadData();
+
+    // Fallback smooth animation if no progress events
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 95) return prev;
         return prev + 1;
       });
-    }, 50);
+    }, 100);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [navigate]);
 
   const handleCancel = () => {
     console.log('Download cancelled');
