@@ -1,4 +1,4 @@
-import Button from "../../components/Button";
+import Button from "../../components/common/Button";
 import { EyeIcon } from "lucide-react";
 import { EyeOff } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
@@ -30,7 +30,7 @@ const Login = () => {
         return;
       }
       localStorage.setItem("user_auth", "true");
-      navigate("/");
+      navigate("/home");
       setLoading(false);
     }, 800);
   };

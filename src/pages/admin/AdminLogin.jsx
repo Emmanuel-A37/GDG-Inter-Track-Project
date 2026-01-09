@@ -1,4 +1,4 @@
-import Button from "../../components/Button";
+import Button from "../../components/common/Button";
 import Eye from "../../assets/eye.svg";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";

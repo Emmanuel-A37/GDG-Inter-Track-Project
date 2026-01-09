@@ -1,30 +1,37 @@
-import React from "react";
-import { ChevronRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { Beaker } from "lucide-react";
+import { ChevronRight, Map, Building } from "lucide-react";
 
-const Item = ({ item }) => {
-  const navigate = useNavigate();
+const iconMap = {
+  building: Building,
+  route: Map,
+};
 
-  const handleClick = () => {
-    navigate(`/home/recent/${item.id}`, {
-      state: { item },
-    });
-  };
+const Item = ({ item, index, onClick }) => {
+  const Icon = iconMap[item.type] || Building;
+
+  const colors =
+    index % 2 === 0
+      ? "bg-[#E7F2FD] text-[#137FEC]"
+      : "bg-[#FEF5E9] text-[#F8B449]";
+
+  const title =
+    item.type === "route"
+      ? `${item.start_building} → ${item.end_building}`
+      : item.name;
+
   return (
     <button
-      onClick={handleClick}
-      className="flex items-center justify-between  rounded-xl p-3 bg-white h-18"
+      onClick={onClick}
+      className={`flex items-center justify-between rounded-xl p-3 ${colors}`}
     >
-      <div className="flex gap-2 items-center">
-        <div className="bg-[#E7F2FD] w-12 h-12 flex items-center justify-center">
-          <Beaker className="text-[#137FEC] w-6 h-6"/>
+      <div className="flex items-center gap-3">
+        <div className="w-12 h-12 rounded-full flex items-center justify-center">
+          <Icon className="w-6 h-6" />
         </div>
-        <p className="font-bold">{item.title}</p>
+
+        <p className="font-bold text-left">{title}</p>
       </div>
-      <span className="">
-        <ChevronRight />
-      </span>
+
+      <ChevronRight />
     </button>
   );
 };
