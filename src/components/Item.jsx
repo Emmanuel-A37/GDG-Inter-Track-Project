@@ -14,7 +14,7 @@ const Item = ({ item, index, onClick }) => {
       : "bg-[#FEF5E9] text-[#F8B449]";
 
   const getTitle = (item) => {
-  if (item.type === "route") return `${item.start_building || "?"} → ${item.end_building || "?"}`;
+  if (item.type === "route") return `${item.start_building || "?"} to ${item.end_building || "?"}`;
   return item.name || "Untitled";
 };
 
