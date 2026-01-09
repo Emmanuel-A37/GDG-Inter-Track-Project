@@ -13,10 +13,11 @@ const Item = ({ item, index, onClick }) => {
       ? "bg-[#E7F2FD] text-[#137FEC]"
       : "bg-[#FEF5E9] text-[#F8B449]";
 
-  const title =
-    item.type === "route"
-      ? `${item.start_building} → ${item.end_building}`
-      : item.name;
+  const getTitle = (item) => {
+  if (item.type === "route") return `${item.start_building || "?"} → ${item.end_building || "?"}`;
+  return item.name || "Untitled";
+};
+
 
   return (
     <button
@@ -28,7 +29,7 @@ const Item = ({ item, index, onClick }) => {
           <Icon className="w-6 h-6" />
         </div>
 
-        <p className="font-bold text-left">{title}</p>
+        <p className="font-bold text-left">{getTitle(item)}</p>
       </div>
 
       <ChevronRight />

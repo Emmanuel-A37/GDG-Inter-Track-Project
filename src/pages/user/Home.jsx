@@ -28,9 +28,6 @@ useEffect(() => {
         Welcome, Student!
       </h1>
       <Searchbar
-        onResults={(results) => {
-          setEntries(results);
-        }}
       />
 
       <div className="flex gap-4 py-3 px-4">
