@@ -17,9 +17,9 @@ const UserFlow = () => {
         <Route
           path="/"
           element={
-            <UserProtectedRoute>
+            // <UserProtectedRoute>
               <Home />
-            </UserProtectedRoute>
+            // </UserProtectedRoute>
           }
         />
         <Route path="/home/recent/:id" element={<Details />} />
