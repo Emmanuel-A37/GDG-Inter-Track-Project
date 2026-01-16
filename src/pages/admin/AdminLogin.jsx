@@ -4,10 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EyeOff } from "lucide-react";
 import Header from "../../components/Header";
+import { loginAdmin } from "../../api/auth.api";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,16 +26,15 @@ const AdminLogin = () => {
 
     setLoading(true);
 
-    timerRef.current = setTimeout(() => {
-      if (password !== "adminonly") {
-        setError("Incorrect password. Please try again.");
-        setLoading(false);
-        return;
-      }
-      localStorage.setItem("admin_auth", "true");
-      navigate("/admin/home");
+    try {
+      const response = await loginAdmin({ userName, password });
+      navigate("/admin/home", { replace: true });
+
+    } catch (err) {
+      setError(err.message || "Invalid password. Please try again.");
+    } finally {
       setLoading(false);
-    }, 800);
+    }
   };
 
   useEffect(() => {
@@ -44,7 +45,11 @@ const AdminLogin = () => {
 
   return (
     <div className="min-h-screen flex flex-col lg:bg-grey">
-      <Header headerTitle="Admin Portal" showIcons={true} customClass="bg-grey border-0" />
+      <Header
+        headerTitle="Admin Portal"
+        showIcons={true}
+        customClass="bg-grey border-0"
+      />
       <main className="flex-1 px-4 pb-4 pt-8 md:pt-11.5 lg:pt-24.5 flex flex-col lg:justify-center lg:mx-auto lg:max-w-120 w-full">
         <form onSubmit={handleLogin} className="flex-1 flex flex-col">
           <div className="flex-1">
@@ -57,6 +62,27 @@ const AdminLogin = () => {
             </p>
 
             <div className="mt-4 md:mt-6 w-full">
+              <label
+                className="text-[14px] text-dark mb-1 block"
+                htmlFor="username"
+              >
+                UserName
+              </label>
+
+              <div className="relative rounded-lg border border-lightGrey lg:bg-white lg:border-white w-full">
+                <input
+                  type="text"
+                  id="username"
+                  value={userName}
+                  onChange={(e) => {
+                    setUserName(e.target.value);
+                    setError("");
+                  }}
+                  autoComplete="current-username"
+                  className="w-full pr-12 py-3 pl-3 border-0 outline-0"
+                />
+              </div>
+
               <label
                 className="text-[14px] text-dark mb-1 block"
                 htmlFor="password"

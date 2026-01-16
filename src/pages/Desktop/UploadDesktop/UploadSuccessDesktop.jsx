@@ -25,7 +25,7 @@ const UploadSuccessDesktop = ({ screenSize = 'desktop' }) => {
           <UploadSuccessIcon size={iconSize} />
         </div>
 
-        <h2 className="text-xl font-semibold text-gray-900 mb-8">
+        <h2 className="text-xl font-semibold text-gray-900 mb-8 text-center">
           Data Uploaded Successfully!
         </h2>
 </div>
