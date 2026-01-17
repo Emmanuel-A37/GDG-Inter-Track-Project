@@ -1,39 +1,23 @@
-//import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import React from "react";
 import "./App.css";
-import AdminLogin from "./pages/admin/AdminLogin";
-import AdminHome from "./pages/admin/AdminHome";
-import AdminProtectedRoute from "./components/AdminProtectedRoute";
-import UserProtectedRoute from "./components/UserProtectedRoute";
-
-import Signup from "./pages/user/Signup";
-import Home from "./pages/user/Home";
-import Login from "./pages/user/Login"
+import UserFlow from "./pages/user/UserFlow";
+import AdminFlow from "./pages/admin/AdminFlow";
+import { Routes, Route } from "react-router-dom";
+import DownloadCampusIpad from "./pages/Ipad/DownloadIpad/DownloadCampusIpad";
+import DownloadCampusDesktop from "./pages/Desktop/Download/DownloadCampusDesktop";
+import DownloadCampus from "./pages/Mobile/DownloadMobile/DownloadCampus";
+import DownloadCampusIpod from "./pages/Ipod/DownloadIpoad/DownloadCampusIpod";
 
 const App = () => {
-
   return (
     <>
       <Routes>
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route
-          path="/admin/home"
-          element={
-            <AdminProtectedRoute>
-              <AdminHome />
-            </AdminProtectedRoute>
-          }
-        />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/"
-          element={
-            <UserProtectedRoute>
-              <Home />
-            </UserProtectedRoute>
-          }
-        />
+        <Route path="/*" element={<UserFlow />} />
+        <Route path="/admin/*" element={<AdminFlow />} />
+        <Route path="/direction" element={<DownloadCampusIpad/>}/>
+        <Route path="/desktop" element={<DownloadCampusDesktop/>}/>
+        <Route path="/mobile" element={<DownloadCampus/>} />
+         <Route path="/ipod" element={<DownloadCampusIpod/>} />
       </Routes>
     </>
   );

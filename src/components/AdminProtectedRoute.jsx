@@ -8,7 +8,4 @@ const AdminProtectedRoute = ({ children}) => {
         return <Navigate to="/admin/login" replace />
     }
 
-    return children
-}
-
-export default AdminProtectedRoute
+export default AdminProtectedRoute;
