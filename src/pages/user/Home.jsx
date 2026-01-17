@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Searchbar from "../../components/Searchbar.jsx";
 import Item from "../../components/Item.jsx";
 import { Link } from "react-router-dom";
-import { House, PersonStanding } from "lucide-react";
 
 const Home = () => {
   const [entries, setEntries] = useState([]);
@@ -24,22 +23,12 @@ const Home = () => {
       <Searchbar />
 
       <div className="flex gap-4 py-3 px-4">
-        <Link
-          to=""
-          className="flex flex-col items-center justify-center h-40 bg-[#E7F2FE] w-full rounded-2xl p-6 my-3"
-        >
-          <div className="w-14 h-14 bg-[#137FEC] rounded-full flex items-center justify-center">
-            <House size={30} className="text-white"/>
-          </div>
+        <Link to="/buildings" className="flex flex-col items-center justify-center h-40 bg-amber-400 w-full rounded-2xl p-6 my-3">
+          <img className="w-14" src="" alt="" />
           <p className="font-bold">Find Building</p>
         </Link>
-        <Link
-          to=""
-          className="flex flex-col items-center justify-center h-40 bg-[#FEF5E9] w-full rounded-2xl p-6 my-3"
-        >
-          <div className="w-14 h-14 bg-[#F8B449] rounded-full flex items-center justify-center">
-            <PersonStanding size={30} className="text-white"/>
-          </div>
+        <div className="flex flex-col items-center justify-center h-40 bg-blue-400 w-full rounded-2xl p-6 my-3">
+          <img className="w-14" src="" alt="" />
           <p className="font-bold">Find Lecturer</p>
         </Link>
       </div>
