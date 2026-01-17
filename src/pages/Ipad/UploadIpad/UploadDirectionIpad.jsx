@@ -94,7 +94,7 @@ const UploadDirectionsIpad = () => {
     };
 
   return (
-    <div className="min-h-[1133px] bg-white max-w-[744px] mx-auto flex flex-col">
+    <div className="min-h-[1133px] bg-white max-w-[744px] mx-auto flex flex-col sm:text-blue-500 xl:text-red-500">
       <PageHeader
         title="Upload Directions"
         showBack

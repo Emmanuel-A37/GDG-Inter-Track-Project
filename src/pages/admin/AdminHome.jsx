@@ -5,9 +5,17 @@ import Direction from "../../assets/direction.jpg";
 import UploadIcon from "../../assets/upload.svg";
 import ArrowIcon from "../../assets/arrow_forward.svg";
 import { useNavigate } from "react-router-dom";
+import { Settings } from "lucide-react";
 
 const AdminHome = () => {
+
+  
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+  localStorage.removeItem("admin_token");
+  navigate("/admin/login");
+};
   return (
     <div className="min-h-screen flex flex-col ">
       <Header />
@@ -29,8 +37,24 @@ const AdminHome = () => {
           subtitle="Update routes, shortcuts, and card-based navigation paths."
           buttonText="Upload Routes"
           buttonIcon={UploadIcon}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/admin/upload-route")}
         />
+
+        {/* Manage Routes Card (not in figma) */}
+        <div 
+          onClick={() => navigate("/admin/manage-routes")}
+          className="border border-borderGrey p-4 rounded-lg bg-white mb-4 cursor-pointer hover:shadow-md transition-shadow"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+              <Settings className="w-5 h-5 text-blue-600" />
+            </div>
+            <div>
+              <h3 className="font-bold text-dark">Manage Routes</h3>
+              <p className="text-sm text-gray-500">Edit or delete existing routes</p>
+            </div>
+          </div>
+        </div>
 
         <div className="border border-borderGrey p-4 rounded-lg bg-[#f9fafb]">
           <h2 className="font-bold text-[14px] text-dark mb-3">
