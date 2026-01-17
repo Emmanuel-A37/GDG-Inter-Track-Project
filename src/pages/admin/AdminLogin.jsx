@@ -1,6 +1,6 @@
 import Button from "../../components/Button";
 import Eye from "../../assets/eye.svg";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EyeOff } from "lucide-react";
 import Header from "../../components/Header";
@@ -8,19 +8,19 @@ import { loginAdmin } from "../../api/auth.api";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const timerRef = useRef(null);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (!password.trim()) {
-      setError("Password is required");
+    if (!username.trim() || !password.trim()) {
+      setError("Username and Password are required");
       return;
     }
 
@@ -37,12 +37,6 @@ const AdminLogin = () => {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, []);
-
   return (
     <div className="min-h-screen flex flex-col lg:bg-grey">
       <Header
@@ -58,65 +52,68 @@ const AdminLogin = () => {
             </h1>
 
             <p className="text-[14px] md:text-base text-darkGrey lg:hidden">
-              Enter the password to access the admin portal.
+              Enter your credentials to access the admin portal.
             </p>
 
-            <div className="mt-4 md:mt-6 w-full">
-              <label
-                className="text-[14px] text-dark mb-1 block"
-                htmlFor="username"
-              >
-                UserName
-              </label>
-
-              <div className="relative rounded-lg border border-lightGrey lg:bg-white lg:border-white w-full">
-                <input
-                  type="text"
-                  id="username"
-                  value={userName}
-                  onChange={(e) => {
-                    setUserName(e.target.value);
-                    setError("");
-                  }}
-                  autoComplete="current-username"
-                  className="w-full pr-12 py-3 pl-3 border-0 outline-0"
-                />
+            <div className="mt-4 md:mt-6 w-full flex flex-col gap-4">
+              <div>
+                <label
+                  className="text-[14px] text-dark mb-1 block"
+                  htmlFor="username"
+                >
+                  Username
+                </label>
+                <div className="relative rounded-lg border border-lightGrey lg:bg-white lg:border-white w-full">
+                  <input
+                    type="text"
+                    id="username"
+                    value={username}
+                    onChange={(e) => {
+                      setUsername(e.target.value);
+                      setError("");
+                    }}
+                    autoComplete="username"
+                    className="w-full py-3 pl-3 border-0 outline-0"
+                  />
+                </div>
               </div>
 
-              <label
-                className="text-[14px] text-dark mb-1 block"
-                htmlFor="password"
-              >
-                Password
-              </label>
+              <div>
+                <label
+                  className="text-[14px] text-dark mb-1 block"
+                  htmlFor="password"
+                >
+                  Password
+                </label>
 
-              <div className="relative rounded-lg border border-lightGrey lg:bg-white lg:border-white w-full">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    setError("");
-                  }}
-                  autoComplete="current-password"
-                  aria-invalid={!!error}
-                  className="w-full pr-12 py-3 pl-3 border-0 outline-0"
-                />
+                <div className="relative rounded-lg border border-lightGrey lg:bg-white lg:border-white w-full">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setError("");
+                    }}
+                    autoComplete="current-password"
+                    aria-invalid={!!error}
+                    className="w-full pr-12 py-3 pl-3 border-0 outline-0"
+                  />
 
-                {showPassword ? (
-                  <EyeOff
-                    className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#60708a]"
-                    onClick={() => setShowPassword(false)}
-                  />
-                ) : (
-                  <img
-                    src={Eye}
-                    alt="Show password"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
-                    onClick={() => setShowPassword(true)}
-                  />
-                )}
+                  {showPassword ? (
+                    <EyeOff
+                      className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#60708a]"
+                      onClick={() => setShowPassword(false)}
+                    />
+                  ) : (
+                    <img
+                      src={Eye}
+                      alt="Show password"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                      onClick={() => setShowPassword(true)}
+                    />
+                  )}
+                </div>
               </div>
 
               {error && (
@@ -135,7 +132,10 @@ const AdminLogin = () => {
             type="submit"
             title={loading ? "Logging in..." : "Login"}
             disabled={loading}
-          />
+            className="bg-primary text-white w-full mb-20"
+          >
+            Login
+          </Button>
         </form>
       </main>
     </div>
@@ -143,3 +143,4 @@ const AdminLogin = () => {
 };
 
 export default AdminLogin;
+

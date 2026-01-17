@@ -1,32 +1,24 @@
-const API_BASE_URL = "http://localhost:8000/api/v1";
+import axios from "axios";
 
-export const apiCall = async (endpoint, options = {}) => {
-  const token = localStorage.getItem("admin_token");
-
-  const headers = {
+const api = axios.create({
+  baseURL: "/api/v1",
+  headers: {
     "Content-Type": "application/json",
-    ...options.headers,
-  };
+  },
+});
 
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
+// Request interceptor to attach token
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("admin_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
+);
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    ...options,
-    headers,
-  });
-
-  let data;
-  try {
-    data = await response.json();
-  } catch {
-    data = {};
-  }
-
-  if (!response.ok) {
-    throw new Error(data.message || "API Error");
-  }
-
-  return data;
-};
+export default api;
