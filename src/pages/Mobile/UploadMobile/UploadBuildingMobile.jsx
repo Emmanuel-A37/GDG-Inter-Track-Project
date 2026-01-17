@@ -58,8 +58,8 @@ const UploadBuilding = () => {
     <div className=" bg-gray-50 max-w-[744px] min-h-[1133px] mx-auto">
       <PageHeader
         title="Building Data Upload"
-        showBack={true}
-        showSave={true}
+        showBack
+        showSave
         onSave={handleSave}
       />
 

@@ -4,39 +4,59 @@ import Accordion from '../../../components/Accordion';
 import Input from '../../../components/common/Input';
 import FileUpload from '../../../components/common/FileUpload';
 import Button from '../../../components/common/Button';
+import { BuildingAPI } from '../../../services/buildingapi';
 
 const UploadBuildingIpod = () => {
+   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     buildingName: '',
-    buildingImage: null
+    buildingImage: null,
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleFileSelect = (file) => {
-    setFormData(prev => ({
-      ...prev,
-      buildingImage: file
-    }));
+    setFormData((prev) => ({ ...prev, buildingImage: file }));
   };
 
-  const handleSave = () => {
-    console.log('Save clicked');
+  const uploadImage = async (file) => {
+    const form = new FormData();
+    form.append('image', file);
+    const res = await fetch('https://api.postimage.org/1/upload', {
+      method: 'POST',
+      body: form,
+    });
+    const data = await res.json();
+    if (data.status === 200) return data.url;
+    throw new Error('Image upload failed');
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
+  const handleSave = async () => {
+    if (!formData.buildingName) return alert('Please enter building name');
+    setIsLoading(true);
+
+    try {
+      const imageUrl = formData.buildingImage ? await uploadImage(formData.buildingImage) : '';
+      await BuildingAPI.createBuilding({
+        name: formData.buildingName,
+        image_url: imageUrl,
+        description: '',
+      });
+      navigate('/upload/status', { state: { success: true } });
+    } catch (error) {
+      console.error(error);
+      navigate('/upload/status', { state: { success: false } });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className=" bg-gray-50 max-w-[320px] min-h-[568px] mx-auto">
+    <div className="bg-gray-50 max-w-[320px] min-h-[568px] mx-auto">
       <PageHeader
         title="Building Data Upload"
         showBack={true}
@@ -45,24 +65,31 @@ const UploadBuildingIpod = () => {
       />
 
       <main className="px-5 py-6 space-y-6">
-        <Accordion title="Upload Building Data"
-        containerClassName="max-w-[287px] min-h-[549px]">
+        <Accordion
+          title="Upload Building Data"
+          containerClassName="max-w-[287px] min-h-[549px]"
+        >
           <Input
             label="Building Name"
             name="buildingName"
             value={formData.buildingName}
             onChange={handleInputChange}
             placeholder="Enter building name"
+            required
           />
 
-          <FileUpload containerClassName="max-w-[255px] h-[171px]" onFileSelect={handleFileSelect} />
+          <FileUpload
+            containerClassName="max-w-[255px] h-[171px]"
+            onFileSelect={handleFileSelect}
+          />
 
           <Button
             variant="primary"
             fullWidth
-            onClick={handleSubmit}
+            onClick={handleSave}
+            disabled={isLoading}
           >
-            Upload Building
+            {isLoading ? 'Uploading...' : 'Upload Building'}
           </Button>
         </Accordion>
       </main>

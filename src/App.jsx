@@ -8,16 +8,17 @@ import Signup from "./pages/user/Signup";
 import Home from "./pages/user/Home";
 import Login from "./pages/user/Login"
 import UploadDirectionsDesktop from "./pages/Desktop/UploadDesktop/UploadDirectionsDesktop";
-import UploadSuccessDesktop from "./pages/Desktop/UploadDesktop/UploadSuccessDesktop";
-import UploadFailureDesktop from "./pages/Desktop/UploadDesktop/UploadFailureDesktop";
-import ManageRoutes from "./pages/admin/ManageRoutes";
-import Buildings from "./pages/user/Buildings";
-import RoutePreview from "./pages/user/RoutePreview";
+import UploadBuildingDesktop from "./pages/Desktop/UploadDesktop/UploadBuildingDesktop";
+import UploadBuildingIpod from "./pages/Ipod/UploadIpod/UploadBuildingIpod";
+import EditBuildingIpod from "./pages/Ipod/EditBuildingIpod";
+import EditBuildingIpad from "./pages/Ipad/EditBuildingIpad";
+import EditBuildingDesktop from "./pages/Desktop/EditBuildingDesktop";
+import EditBuildingMobile from "./pages/Mobile/EditBuildingMobile";
 
 const App = () => {
   return (
     <>
-      <Routes>
+      {/* <Routes>
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route
           path="/admin/home"
@@ -42,10 +43,8 @@ const App = () => {
             </UserProtectedRoute>
           }
         />
-        <Route path="/buildings" element={<Buildings />} /> 
-        <Route path="/route-preview/:id" element={<RoutePreview />} /> 
-      </Routes>
-      
+      </Routes> */}
+      <EditBuildingMobile/>
     </>
   );
 };

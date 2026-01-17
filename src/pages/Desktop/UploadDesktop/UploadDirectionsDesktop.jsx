@@ -16,7 +16,7 @@ const UploadDirectionsDesktop = () => {
   const [buildings, setBuildings] = useState([]);
   const [formData, setFormData] = useState({
     startingPoint: '',
-    destination: ''
+    destination: '',
   });
 
   const [instructions, setInstructions] = useState([
@@ -85,17 +85,13 @@ const UploadDirectionsDesktop = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+
   const handleInstructionChange = (id, value) => {
-    setInstructions(prev =>
-      prev.map(instruction =>
-        instruction.id === id ? { ...instruction, text: value } : instruction
-      )
+    setInstructions((prev) =>
+      prev.map((i) => (i.id === id ? { ...i, text: value } : i))
     );
   };
 
@@ -244,14 +240,14 @@ const UploadDirectionsDesktop = () => {
           </div>
         </div>
         <div>
-          <div className='flex justify-between items-center mb-4'>
-            <h2 className='text-xl font-bold text-gray-900'>Instructions</h2>
-            <span className='text-sm text-gray-500'>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold text-gray-900">Instructions</h2>
+            <span className="text-sm text-gray-500">
               {instructions.length} step{instructions.length !== 1 ? 's' : ''} added
             </span>
           </div>
 
-          <div className='space-y-8'>
+          <div className="space-y-4">
             {instructions.map((instruction, index) => (
               <div key={instruction.id} className='relative border border-gray-200 rounded-lg p-4 bg-gray-50'>
                 <div className='absolute -left-3 -top-3 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm ring-4 ring-white'>
@@ -293,8 +289,9 @@ const UploadDirectionsDesktop = () => {
               </div>
             ))}
           </div>
+
           <button
-            type='button'
+            type="button"
             onClick={handleAddStep}
             className='flex items-center gap-2 text-blue-600 font-medium mt-6 hover:text-blue-700 mx-auto'
           >

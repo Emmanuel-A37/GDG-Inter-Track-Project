@@ -6,7 +6,8 @@ export const SCREEN_SIZES = {
     footerHeight: '96px',
     buttonWidth: '696px',
     buttonHeight: '56px',
-    totalHeight: '1133px'
+    totalHeight: '1133px',
+     inputHeight: '60px'
   },
 
   ipod: {
@@ -16,7 +17,8 @@ export const SCREEN_SIZES = {
     footerHeight: '56px',
     buttonWidth: '288px',
     buttonHeight: '44px',
-    totalHeight: '568px'
+    totalHeight: '568px',
+    inputHeight: '50px'
   },
 
   ipad: {
@@ -26,7 +28,8 @@ export const SCREEN_SIZES = {
     footerHeight: '96px',
     buttonWidth: '696px',
     buttonHeight: '56px',
-    totalHeight: '1133px'
+    totalHeight: '1133px',
+     inputHeight: '60px'
   },
 
   desktop: {
@@ -36,7 +39,8 @@ export const SCREEN_SIZES = {
     footerHeight: '140px',
     buttonWidth: '400px',
     buttonHeight: '56px',
-    totalHeight: '900px'
+    totalHeight: '900px',
+     inputHeight: '60px'
   }
 };
 

@@ -3,13 +3,13 @@ import PageLayout from '../../../components/common/PageLayout';
 import DownloadButton from '../../../components/common/DownloadButton';
 import NoInternetIcon from '../../../components/Icons/NoInternetIcon';
 import { getScreenSize, NO_INTERNET_ICON_SIZES } from '../../../constants';
-
+import { useNavigate } from 'react-router-dom';
 const NoInternetDesktop = ({ screenSize = 'desktop' }) => {
   const sizes = getScreenSize(screenSize);
   const iconSize = NO_INTERNET_ICON_SIZES[screenSize] || 108;
-
+  const navigate = useNavigate();
   const handleRetry = () => {
-    console.log('Retrying...');
+  navigate('/download/downloading');
   };
 
   return (
