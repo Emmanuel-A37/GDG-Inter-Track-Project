@@ -8,7 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { Settings } from "lucide-react";
 
 const AdminHome = () => {
+
+  
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+  localStorage.removeItem("admin_token");
+  navigate("/admin/login");
+};
   return (
     <div className="min-h-screen flex flex-col ">
       <Header />

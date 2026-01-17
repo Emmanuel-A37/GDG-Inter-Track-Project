@@ -15,7 +15,6 @@ import Buildings from "./pages/user/Buildings";
 import RoutePreview from "./pages/user/RoutePreview";
 
 const App = () => {
-
   return (
     <>
       <Routes>
