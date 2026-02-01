@@ -7,5 +7,5 @@ const AdminProtectedRoute = ({ children}) => {
     if (!isAdminAuthenticated) {
         return <Navigate to="/admin/login" replace />
     }
-
+}
 export default AdminProtectedRoute;

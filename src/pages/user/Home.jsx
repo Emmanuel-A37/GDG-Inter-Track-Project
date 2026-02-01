@@ -30,7 +30,7 @@ const Home = () => {
         <div className="flex flex-col items-center justify-center h-40 bg-blue-400 w-full rounded-2xl p-6 my-3">
           <img className="w-14" src="" alt="" />
           <p className="font-bold">Find Lecturer</p>
-        </Link>
+        </div>
       </div>
 
       <h3 className="text-dark font-bold text-lg p-4">Recent</h3>

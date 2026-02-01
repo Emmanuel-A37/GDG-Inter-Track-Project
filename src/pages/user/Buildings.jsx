@@ -7,31 +7,35 @@ import Item from '../../components/Item';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 
 const Buildings = () => {
+    const data = [
+        {start_building: "A", end_building: "B", id: 1, title: "A to B"}, 
+        {start_building: "C", end_building: "D", id: 2, title: "C to D"}
+    ];
     const navigate = useNavigate();
-    const [routes, setRoutes] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [routes, setRoutes] = useState(data);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const fetchRoutes = useCallback(async (query) => {
-        setLoading(true);
-        setError(null);
-        try {
-            const endpoint = query ? `/routes/search?q=${encodeURIComponent(query)}` : '/routes';
-            const response = await api.get(endpoint);
-            if (response.data.success) {
-                setRoutes(response.data.data);
-            }
-        } catch (err) {
-            console.error('Error fetching routes:', err);
-            setError('Failed to load routes');
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+    // const fetchRoutes = useCallback(async (query) => {
+    //     setLoading(true);
+    //     setError(null);
+    //     try {
+    //         const endpoint = query ? `/routes/search?q=${encodeURIComponent(query)}` : '/routes';
+    //         const response = await api.get(endpoint);
+    //         if (response.data.success) {
+    //             setRoutes(response.data.data);
+    //         }
+    //     } catch (err) {
+    //         console.error('Error fetching routes:', err);
+    //         setError('Failed to load routes');
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // }, []);
 
-    useEffect(() => {
-        fetchRoutes();
-    }, [fetchRoutes]);
+    // useEffect(() => {
+    //     fetchRoutes();
+    // }, [fetchRoutes]);
 
     return (
         <div className="min-h-screen bg-[#F6F7F8] flex flex-col">
@@ -39,7 +43,7 @@ const Buildings = () => {
             
             <div className="px-4">
                 <Searchbar 
-                    onSearch={fetchRoutes} 
+                    onSearch={() => {}} 
                     placeholder="Search routes..." 
                 />
             </div>
@@ -65,8 +69,7 @@ const Buildings = () => {
                     {routes.map((route) => (
                         <Item 
                             key={route.id} 
-                            title={`${route.start_building} to ${route.end_building}`}
-                            onClick={() => navigate(`/route-preview/${route.id}`)}
+                            item={route}
                         />
                     ))}
                 </div>
